@@ -14,5 +14,10 @@ COPY ./src ./src
 # Installs all packages
 RUN npm install
 
+# Monitoring ENV Variables
+ENV NEW_RELIC_NO_CONFIG_FILE=true
+ENV NEW_RELIC_DISTRIBUTED_TRACING_ENABLED=true \
+NEW_RELIC_LOG=stdout
+
 # Runs the dev npm script to build & start the server
 CMD npm run dev

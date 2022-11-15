@@ -1,6 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import { Pool } from "pg";
+import newrelic from "newrelic";
+
 
 const app = express();
 dotenv.config(); //Reads .env file and makes it accessible via process.env
@@ -29,7 +31,12 @@ app.get("", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.get("/ping", (req: Request, res: Response, next: NextFunction) => {
+  newrelic.incrementMetric('Ping/NumberOfCalls', 1);
   res.send("Pong");
+});
+
+app.get("/error", (req: Request, res: Response, next: NextFunction) => {
+  throw new Error('Error! Sorry about that :(')
 });
 
 app.listen(process.env.PORT, () => {

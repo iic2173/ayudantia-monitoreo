@@ -10,6 +10,10 @@ services:
       - db
     volumes:
     - .:/usr/src/app
+    environment:
+      - name=value
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - NEW_RELIC_APP_NAME=${NEW_RELIC_APP_NAME}
 
   db:
     container_name: postgres
